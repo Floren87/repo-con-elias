@@ -23,16 +23,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dsize)
 	dst[i] = '\0';
 	return (dstlen + src_len);
 }
-
-#include <stdio.h>
-int main(void)
-{
-	char *src = "este es el string que quiero copiar";
-	char dst[50] ;
-	size_t res = ft_strlcat(dst, src, 20);
-
-	
-	printf("despues de copiar : %d", res);
-	return(0);
-
-}
