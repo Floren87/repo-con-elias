@@ -1,4 +1,6 @@
 *.o
 *.a
+*.swp
+*.swo
 push_swap
 checker
