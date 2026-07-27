@@ -7,11 +7,15 @@ SRCS	=	main.c \
 			ops_swap.c \
 			ops_push.c \
 			ops_rotate.c \
+			ops_rr.c \
 			stack_utils.c \
+			stack_free.c \
 			parse.c \
+			sort_utils.c \
 			disorder.c \
 			sort_simple.c \
 			sort_medium.c \
+			sort_medium_utils.c \
 			sort_complex.c \
 			sort_adaptive.c \
 			error.c
@@ -31,17 +35,19 @@ $(NAME): $(LIBFT) $(OBJS)
 %.o: %.c push_swap.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
+BONUS_OBJS	= checker_bonus.o checker_ops_bonus.o
+
 clean:
 	make -C libft clean
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
 	make -C libft fclean
-	rm -f $(NAME)
+	rm -f $(NAME) checker
 
 re: fclean all
 
 bonus:
-	make -C . NAME=checker SRCS="checker_bonus.c ops_swap.c ops_push.c ops_rotate.c stack_utils.c parse.c error.c"
+	make -C . NAME=checker SRCS="checker_bonus.c checker_ops_bonus.c stack_utils.c stack_free.c parse.c sort_utils.c error.c"
 
 .PHONY: all clean fclean re bonus

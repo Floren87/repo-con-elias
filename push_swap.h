@@ -6,10 +6,16 @@
 # include <limits.h>
 
 /* strategy flags */
-# define ADAPTIVE	0
-# define SIMPLE		1
-# define MEDIUM		2
-# define COMPLEX	3
+# define ADAPTIVE		0
+# define SIMPLE			1
+# define MEDIUM			2
+# define COMPLEX		3
+
+/* complexity classes for --bench output */
+# define COMPLEXITY_N		0
+# define COMPLEXITY_N2		1
+# define COMPLEXITY_NSQRTN	2
+# define COMPLEXITY_NLOGN	3
 
 /* op indices — used by bench counters in t_stacks */
 # define OP_SA		0
@@ -39,6 +45,7 @@ typedef struct s_stacks
 	int		size_b;
 	double	disorder;
 	int		strategy;
+	int		complexity;
 	int		bench;
 	int		op_counts[11];
 }	t_stacks;
@@ -79,9 +86,18 @@ void		sort_simple(t_stacks *s);
 void		sort_medium(t_stacks *s);
 void		sort_complex(t_stacks *s);
 void		sort_adaptive(t_stacks *s);
+int			closest_in_chunk(t_stacks *s, int chunk_limit);
+void		rotate_a_to_top(t_stacks *s, int pos);
+int			chunk_size_for(int n);
 
 /* --- error & bench --- */
 void		error_exit(t_stacks *s);
 void		print_bench(t_stacks *s);
+
+/* --- checker ops (silent, no stdout) --- */
+void		c_swap(t_node **stack, int size);
+void		c_rotate(t_node **stack, int size);
+void		c_rrotate(t_node **stack, int size);
+void		c_push(t_node **to, t_node **from, int *to_sz, int *from_sz);
 
 #endif

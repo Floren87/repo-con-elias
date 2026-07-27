@@ -33,11 +33,20 @@ static int	get_start(int argc, char **argv, t_stacks *s)
 static void	run_strategy(t_stacks *s)
 {
 	if (s->strategy == SIMPLE)
+	{
+		s->complexity = COMPLEXITY_N2;
 		sort_simple(s);
+	}
 	else if (s->strategy == MEDIUM)
+	{
+		s->complexity = COMPLEXITY_NSQRTN;
 		sort_medium(s);
+	}
 	else if (s->strategy == COMPLEX)
+	{
+		s->complexity = COMPLEXITY_NLOGN;
 		sort_complex(s);
+	}
 	else
 		sort_adaptive(s);
 }

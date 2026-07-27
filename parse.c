@@ -1,81 +1,36 @@
 #include "push_swap.h"
 
-void	assign_ranks(t_stacks *s)
+static int	parse_digits(char *str, long *n)
 {
-	t_node	*current;
-	t_node	*other;
-	int		rank;
-
-	current = s->a;
-	while (current)
+	if (!*str)
+		return (0);
+	*n = 0;
+	while (*str)
 	{
-		rank = 1;
-		other = s->a;
-		while (other)
-		{
-			if (other->value < current->value)
-				rank++;
-			other = other->next;
-		}
-		current->rank = rank;
-		current = current->next;
-	}
-}
-
-int	is_sorted(t_stacks *s)
-{
-	t_node	*node;
-
-	node = s->a;
-	while (node && node->next)
-	{
-		if (node->value > node->next->value)
+		if (!ft_isdigit(*str))
 			return (0);
-		node = node->next;
+		*n = *n * 10 + (*str - '0');
+		if (*n > (long)INT_MAX + 1)
+			return (0);
+		str++;
 	}
 	return (1);
 }
 
-int	parse_flag(char *arg)
-{
-	if (ft_strncmp(arg, "--simple", 9) == 0)
-		return (SIMPLE);
-	if (ft_strncmp(arg, "--medium", 9) == 0)
-		return (MEDIUM);
-	if (ft_strncmp(arg, "--complex", 10) == 0)
-		return (COMPLEX);
-	if (ft_strncmp(arg, "--adaptive", 11) == 0)
-		return (ADAPTIVE);
-	return (-1);
-}
-
 static int	is_valid_int(char *str, long *out)
 {
-	long	n;
-	int		sign;
-	int		i;
+	int	sign;
 
-	i = 0;
 	sign = 1;
-	if (str[i] == '-' || str[i] == '+')
+	if (*str == '-' || *str == '+')
 	{
-		if (str[i] == '-')
+		if (*str == '-')
 			sign = -1;
-		i++;
+		str++;
 	}
-	if (!str[i])
+	if (!parse_digits(str, out))
 		return (0);
-	n = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		n = n * 10 + (str[i] - '0');
-		if (n > (long)INT_MAX + 1)
-			return (0);
-		i++;
-	}
-	*out = n * sign;
+	*out *= sign;
 	if (*out > INT_MAX || *out < INT_MIN)
 		return (0);
 	return (1);

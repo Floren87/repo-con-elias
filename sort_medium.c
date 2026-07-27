@@ -1,15 +1,5 @@
 #include "push_swap.h"
 
-static int	isqrt(int n)
-{
-	int	i;
-
-	i = 1;
-	while (i * i <= n)
-		i++;
-	return (i - 1);
-}
-
 static int	find_in_b(t_stacks *s, int rank)
 {
 	t_node	*node;
@@ -25,29 +15,6 @@ static int	find_in_b(t_stacks *s, int rank)
 		node = node->next;
 	}
 	return (0);
-}
-
-static void	push_chunks(t_stacks *s, int chunk_size)
-{
-	int	chunk_limit;
-	int	pushed;
-	int	size;
-
-	size = s->size_a;
-	chunk_limit = chunk_size;
-	pushed = 0;
-	while (pushed < size)
-	{
-		if (s->a->rank <= chunk_limit)
-		{
-			op_pb(s);
-			pushed++;
-		}
-		else
-			op_ra(s);
-		if (pushed == chunk_limit && pushed < size)
-			chunk_limit += chunk_size;
-	}
 }
 
 static void	rotate_b_to_top(t_stacks *s, int pos)
@@ -86,13 +53,29 @@ static void	pull_sorted(t_stacks *s)
 	}
 }
 
+static void	push_chunks(t_stacks *s, int chunk_size)
+{
+	int	chunk_limit;
+	int	pushed;
+	int	size;
+
+	size = s->size_a;
+	chunk_limit = chunk_size;
+	pushed = 0;
+	while (pushed < size)
+	{
+		rotate_a_to_top(s, closest_in_chunk(s, chunk_limit));
+		op_pb(s);
+		pushed++;
+		if (pushed == chunk_limit && pushed < size)
+			chunk_limit += chunk_size;
+	}
+}
+
 void	sort_medium(t_stacks *s)
 {
-	int	chunk_size;
-
 	if (s->size_a <= 1 || is_sorted(s))
 		return ;
-	chunk_size = isqrt(s->size_a);
-	push_chunks(s, chunk_size);
+	push_chunks(s, chunk_size_for(s->size_a));
 	pull_sorted(s);
 }
