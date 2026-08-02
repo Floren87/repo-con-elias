@@ -10,6 +10,7 @@
 # define SIMPLE			1
 # define MEDIUM			2
 # define COMPLEX		3
+# define REVERSE		4
 
 /* complexity classes for --bench output */
 # define COMPLEXITY_N		0
@@ -85,6 +86,7 @@ double		compute_disorder(t_stacks *s);
 void		sort_simple(t_stacks *s);
 void		sort_medium(t_stacks *s);
 void		sort_complex(t_stacks *s);
+void    	sort_reverse(t_stacks *s);
 void		sort_adaptive(t_stacks *s);
 int			closest_in_chunk(t_stacks *s, int chunk_limit);
 void		rotate_a_to_top(t_stacks *s, int pos);

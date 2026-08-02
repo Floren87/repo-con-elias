@@ -18,6 +18,7 @@ SRCS	=	main.c \
 			sort_medium_utils.c \
 			sort_complex.c \
 			sort_adaptive.c \
+			sort_reverse.c \
 			error.c
 
 OBJS	= $(SRCS:.c=.o)
@@ -48,6 +49,6 @@ fclean: clean
 re: fclean all
 
 bonus:
-	make -C . NAME=checker SRCS="checker_bonus.c checker_ops_bonus.c stack_utils.c stack_free.c parse.c sort_utils.c error.c"
+	make -C . NAME=checker SRCS="checker_bonus.c checker_ops_bonus.c stack_utils.c stack_free.c parse.c sort_utils.c error.c sort_reverse.o"
 
 .PHONY: all clean fclean re bonus

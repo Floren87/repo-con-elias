@@ -46,5 +46,7 @@ int	parse_flag(char *arg)
 		return (COMPLEX);
 	if (ft_strncmp(arg, "--adaptive", 11) == 0)
 		return (ADAPTIVE);
+	if (ft_strncmp(arg, "--reverse", 10) == 0)
+		return (REVERSE);
 	return (-1);
 }

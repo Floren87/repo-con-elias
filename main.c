@@ -47,6 +47,11 @@ static void	run_strategy(t_stacks *s)
 		s->complexity = COMPLEXITY_NLOGN;
 		sort_complex(s);
 	}
+	else if	(s->strategy == REVERSE)
+	{
+		s->complexity = COMPLEXITY_N2;
+		sort_reverse(s);
+	}
 	else
 		sort_adaptive(s);
 }
