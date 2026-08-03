@@ -8,23 +8,21 @@ static int	is_bench_flag(char *arg)
 static int	get_start(int argc, char **argv, t_stacks *s)
 {
 	int	start;
+	int	flag;
 
 	start = 1;
 	if (argc < 2)
 		return (0);
-	if (is_bench_flag(argv[1]))
+	while (start < argc)
 	{
-		s->bench = 1;
-		start = 2;
-	}
-	if (start < argc && parse_flag(argv[start]) != -1)
-	{
-		s->strategy = parse_flag(argv[start]);
+		if (is_bench_flag(argv[start]))
+			s->bench = 1;
+		else if ((flag = parse_flag(argv[start])) != -1)
+			s->strategy = flag;
+		else
+			break;
 		start++;
 	}
-	else if (start < argc && parse_flag(argv[start]) == -1
-		&& !is_bench_flag(argv[start]))
-		s->strategy = ADAPTIVE;
 	if (start >= argc)
 		return (0);
 	return (start);
