@@ -1,9 +1,22 @@
 NAME	= push_swap
-
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -I.
 
-SRCS	=	main.c \
+FLOREN	= push-swap-floren
+ELIAS	= push-swap-elias
+
+vpath %.c $(FLOREN) $(ELIAS)
+
+SRCS_F	=	sort_simple.c \
+			sort_medium.c \
+			sort_medium_utils.c \
+			sort_complex.c \
+			sort_adaptive.c \
+			sort_reverse.c \
+			sort_utils.c \
+			disorder.c
+
+SRCS_E	=	main.c \
 			ops_swap.c \
 			ops_push.c \
 			ops_rotate.c \
@@ -11,16 +24,9 @@ SRCS	=	main.c \
 			stack_utils.c \
 			stack_free.c \
 			parse.c \
-			sort_utils.c \
-			disorder.c \
-			sort_simple.c \
-			sort_medium.c \
-			sort_medium_utils.c \
-			sort_complex.c \
-			sort_adaptive.c \
-			sort_reverse.c \
 			error.c
 
+SRCS	= $(SRCS_E) $(SRCS_F)
 OBJS	= $(SRCS:.c=.o)
 
 LIBFT	= libft/libft.a
@@ -36,7 +42,15 @@ $(NAME): $(LIBFT) $(OBJS)
 %.o: %.c push_swap.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-BONUS_OBJS	= checker_bonus.o checker_ops_bonus.o
+BONUS_SRCS	=	checker_bonus.c \
+				checker_ops_bonus.c \
+				stack_utils.c \
+				stack_free.c \
+				parse.c \
+				sort_utils.c \
+				error.c
+
+BONUS_OBJS	= $(BONUS_SRCS:.c=.o)
 
 clean:
 	make -C libft clean
@@ -48,7 +62,7 @@ fclean: clean
 
 re: fclean all
 
-bonus:
-	make -C . NAME=checker SRCS="checker_bonus.c checker_ops_bonus.c stack_utils.c stack_free.c parse.c sort_utils.c error.c sort_reverse.o"
+bonus: $(LIBFT) $(BONUS_OBJS)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) -o checker
 
 .PHONY: all clean fclean re bonus
