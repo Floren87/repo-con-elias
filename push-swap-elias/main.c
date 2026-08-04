@@ -17,10 +17,14 @@ static int	get_start(int argc, char **argv, t_stacks *s)
 	{
 		if (is_bench_flag(argv[start]))
 			s->bench = 1;
-		else if ((flag = parse_flag(argv[start])) != -1)
-			s->strategy = flag;
 		else
-			break;
+		{
+			flag = parse_flag(argv[start]);
+			if (flag != -1)
+				s->strategy = flag;
+			else
+				break;
+		}
 		start++;
 	}
 	if (start >= argc)
