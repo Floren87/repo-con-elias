@@ -2,21 +2,7 @@ NAME	= push_swap
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -I.
 
-FLOREN	= push-swap-floren
-ELIAS	= push-swap-elias
-
-vpath %.c $(FLOREN) $(ELIAS)
-
-SRCS_F	=	sort_simple.c \
-			sort_medium.c \
-			sort_medium_utils.c \
-			sort_complex.c \
-			sort_adaptive.c \
-			sort_reverse.c \
-			sort_utils.c \
-			disorder.c
-
-SRCS_E	=	main.c \
+SRCS	=	main.c \
 			ops_swap.c \
 			ops_push.c \
 			ops_rotate.c \
@@ -24,9 +10,14 @@ SRCS_E	=	main.c \
 			stack_utils.c \
 			stack_free.c \
 			parse.c \
-			error.c
-
-SRCS	= $(SRCS_E) $(SRCS_F)
+			error.c \
+			sort_simple.c \
+			sort_medium.c \
+			sort_medium_utils.c \
+			sort_complex.c \
+			sort_adaptive.c \
+			sort_utils.c \
+			disorder.c
 OBJS	= $(SRCS:.c=.o)
 
 LIBFT	= libft/libft.a
