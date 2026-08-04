@@ -1,4 +1,4 @@
-*Este proyecto ha sido creado como parte del currículo de 42 por \<login1\>, \<login2\>.*
+*fcamasa | Elilopez*
 
 # push_swap
 
@@ -136,8 +136,8 @@ checker_ops_bonus.c   — checker: silent operation implementations
 
 | Estudiante | Contribución |
 |------------|--------------|
-| \<login1\> | Algoritmos sort_medium y sort_complex, optimización del chunk sort, benchmarking |
-| \<login2\> | Parsing, manejo de errores, sort_simple, sort_adaptive, checker bonus, estructura del proyecto |
+| fcamasa | Algoritmos: sort_simple, sort_medium, sort_complex, sort_adaptive, disorder, benchmarking |
+| Elilopez | Core: parsing, operaciones, stack, manejo de errores, main, checker bonus |
 
 ## Recursos
 
