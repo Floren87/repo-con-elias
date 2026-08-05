@@ -66,23 +66,41 @@ static void	push_to_bottom(t_stacks *s, t_node *node)
 	last->next = node;
 }
 
-void	parse_input(t_stacks *s, int argc, char **argv, int start)
+static void	parse_token(t_stacks *s, char *token)
 {
 	long	value;
 	t_node	*node;
+
+	if (!is_valid_int(token, &value))
+		error_exit(s);
+	if (is_duplicate(s, (int)value))
+		error_exit(s);
+	node = node_new((int)value);
+	if (!node)
+		error_exit(s);
+	push_to_bottom(s, node);
+}
+
+void	parse_input(t_stacks *s, int argc, char **argv, int start)
+{
+	char	**tokens;
 	int		i;
+	int		j;
 
 	i = start;
 	while (i < argc)
 	{
-		if (!is_valid_int(argv[i], &value))
+		tokens = ft_split(argv[i], ' ');
+		if (!tokens)
 			error_exit(s);
-		if (is_duplicate(s, (int)value))
-			error_exit(s);
-		node = node_new((int)value);
-		if (!node)
-			error_exit(s);
-		push_to_bottom(s, node);
+		j = 0;
+		while (tokens[j])
+		{
+			parse_token(s, tokens[j]);
+			free(tokens[j]);
+			j++;
+		}
+		free(tokens);
 		i++;
 	}
 	if (s->size_a == 0)
