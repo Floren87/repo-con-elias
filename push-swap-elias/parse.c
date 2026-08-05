@@ -81,26 +81,33 @@ static void	parse_token(t_stacks *s, char *token)
 	push_to_bottom(s, node);
 }
 
+static void	parse_str(t_stacks *s, char *str)
+{
+	char	token[32];
+	int		i;
+
+	while (*str)
+	{
+		while (*str == ' ')
+			str++;
+		if (!*str)
+			break ;
+		i = 0;
+		while (*str && *str != ' ')
+			token[i++] = *str++;
+		token[i] = '\0';
+		parse_token(s, token);
+	}
+}
+
 void	parse_input(t_stacks *s, int argc, char **argv, int start)
 {
-	char	**tokens;
-	int		i;
-	int		j;
+	int	i;
 
 	i = start;
 	while (i < argc)
 	{
-		tokens = ft_split(argv[i], ' ');
-		if (!tokens)
-			error_exit(s);
-		j = 0;
-		while (tokens[j])
-		{
-			parse_token(s, tokens[j]);
-			free(tokens[j]);
-			j++;
-		}
-		free(tokens);
+		parse_str(s, argv[i]);
 		i++;
 	}
 	if (s->size_a == 0)

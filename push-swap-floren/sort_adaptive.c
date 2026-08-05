@@ -9,7 +9,7 @@ void	sort_adaptive(t_stacks *s)
 		s->complexity = COMPLEXITY_N;
 		sort_simple(s);
 	}
-	else if (s->disorder < 0.5)
+	else if (s->disorder < 0.5 && s->size_a <= 250)
 	{
 		s->complexity = COMPLEXITY_NSQRTN;
 		sort_medium(s);
